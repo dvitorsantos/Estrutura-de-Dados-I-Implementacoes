@@ -1,5 +1,6 @@
 //
-// Created by vitor on 29/04/22.
+// Vitor Santos
+// Pablo Kaua
 //
 
 #ifndef TRABALHO_IMPLEMENTACAO_01_COFO_H

@@ -1,3 +1,8 @@
+//
+// Vitor Santos
+// Pablo Kaua
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "Cofo.h"
