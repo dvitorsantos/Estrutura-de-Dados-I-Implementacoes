@@ -41,10 +41,10 @@ int getOperation() {
     printf("2. Inserir na coleção\n");
     printf("3. Listar a coleção\n");
     printf("4. Procurar item pelo id (int): \n");
-    printf("5. Procurar item pelo nome (char *): \n");
+    printf("5. Procurar item pelo nome (string): \n");
     printf("6. Procurar item pela quantidade de estrelas (float): \n");
     printf("7. Remover item pelo id (int): \n");
-    printf("8. Remover item pelo nome (char *): \n");
+    printf("8. Remover item pelo nome (string): \n");
     printf("9. Remover item pela quantidade de estrelas (float): \n");
     printf("10. Esvaziar a coleção\n");
     printf("11. Destruir a coleção\n");

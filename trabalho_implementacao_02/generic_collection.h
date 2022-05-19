@@ -13,6 +13,10 @@ int genericCollectionDestroy(GenericCollection *genericCollection);
 
 int genericCollectionInsert(GenericCollection *genericCollection, void *element);
 
+int genericCollectionCurrentSize(GenericCollection *genericCollection);
+
+int genericCollectionSize(GenericCollection *genericCollection);
+
 void *genericCollectionFindAll(GenericCollection *genericCollection);
 
 void *genericCollectionFind(GenericCollection *genericCollection, void *key, int(*cmp)(void *, void *));
