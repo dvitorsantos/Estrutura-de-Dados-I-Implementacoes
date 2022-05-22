@@ -1,5 +1,6 @@
 #include "generic_collection.c"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define TRUE 1
@@ -19,7 +20,7 @@ int cmpBookInt(void *element, void *key) {
     else return FALSE;
 }
 
-int cmpBookString(void *element, void *key) {
+int cmpBookString(void *element, void **key) {
     char *id = (char *) key;
     Book *book = (Book *) element;
 
@@ -36,18 +37,18 @@ int cmpBookFloat(void *element, void *key) {
 }
 
 int getOperation() {
-    printf("Digite uma opção: \n");
-    printf("1. Criar uma coleção\n");
-    printf("2. Inserir na coleção\n");
-    printf("3. Listar a coleção\n");
+    printf("Digite uma opcao: \n");
+    printf("1. Criar uma colecao\n");
+    printf("2. Inserir na colecao\n");
+    printf("3. Listar a colecao\n");
     printf("4. Procurar item pelo id (int): \n");
     printf("5. Procurar item pelo nome (string): \n");
     printf("6. Procurar item pela quantidade de estrelas (float): \n");
     printf("7. Remover item pelo id (int): \n");
     printf("8. Remover item pelo nome (string): \n");
     printf("9. Remover item pela quantidade de estrelas (float): \n");
-    printf("10. Esvaziar a coleção\n");
-    printf("11. Destruir a coleção\n");
+    printf("10. Esvaziar a colecao\n");
+    printf("11. Destruir a colecao\n");
     printf("0. Sair\n\n");
 
     int operation;
@@ -80,8 +81,8 @@ float readFloat(char *message) {
 
 void bookToString(Book *book) {
     printf("    Livro %d: \n", book->id);
-    printf("        Título: %s\n", book->name);
-    printf("        Estrelas: %f\n\n", book->stars);
+    printf("        Titulo: %s\n", book->name);
+    printf("        Estrelas: %.1f\n\n", book->stars);
 }
 
 int main() {
@@ -94,6 +95,8 @@ int main() {
         char *inputString;
         float inputFloat;
 
+        char inputStringVector[30];
+
         Book **books;
 
         Book *book;
@@ -101,11 +104,11 @@ int main() {
 
         switch (operation) {
             case 1:
-                inputInt = readInt("Digite o tamanho da coleção: ");
+                inputInt = readInt("Digite o tamanho da colecao: ");
                 if (genericCollection = genericCollectionCreate(inputInt))
-                    printf("Coleção criada!\n\n");
+                    printf("Colecao criada!\n\n");
                 else
-                    printf("Erro ao criar a coleção!\n\n");
+                    printf("Erro ao criar a colecao!\n\n");
                 break;
             case 2:
                 book = (Book *) malloc(sizeof(Book));
@@ -115,7 +118,7 @@ int main() {
                     break;
                 }
 
-                inputInt = readInt("Digite o código do livro: ");
+                inputInt = readInt("Digite o codigo do livro: ");
                 book->id = inputInt;
                 inputString = readString("Digite o nome do livro: ");
                 strcpy(book->name, inputString);
@@ -135,7 +138,7 @@ int main() {
                     }
                     break;
                 } else {
-                    printf("Coleção vazia.\n\n");
+                    printf("Colecao vazia.\n\n");
                     break;
                 }
             case 4:
@@ -149,13 +152,14 @@ int main() {
                     break;
                 }
             case 5:
-                inputString = readString("Digite o titulo do livro");
+                printf("%s\n\n", "Digite o titulo do livro");
+                scanf("%s", inputStringVector);
 
-                if (book = (Book *) genericCollectionFind(genericCollection, inputString, cmpBookString)) {
+                if (book = (Book *) genericCollectionFind(genericCollection, inputStringVector, cmpBookString)) {
                     bookToString(book);
                     break;
                 } else {
-                    printf("Livro não econtrado.\n\n");
+                    printf("Livro nao econtrado.\n\n");
                     break;
                 }
             case 6:
@@ -165,7 +169,7 @@ int main() {
                     bookToString(book);
                     break;
                 } else {
-                    printf("Livro não econtrado.\n\n");
+                    printf("Livro nao econtrado.\n\n");
                     break;
                 }
             case 7:
@@ -175,13 +179,14 @@ int main() {
                     printf("Livro removido.\n\n");
                     break;
                 } else {
-                    printf("Livro não econtrado.\n\n");
+                    printf("Livro nao econtrado.\n\n");
                     break;
                 }
             case 8:
-                inputString = readString("Digite o titulo do livro");
+                printf("%s\n\n", "Digite o titulo do livro");
+                scanf("%s", inputStringVector);
 
-                if (genericCollectionRemove(genericCollection, inputString, cmpBookString)) {
+                if (genericCollectionRemove(genericCollection, inputStringVector, cmpBookString)) {
                     printf("Livro removido.\n\n");
                     break;
                 } else {
@@ -195,25 +200,28 @@ int main() {
                     printf("Livro removido.\n\n");
                     break;
                 } else {
-                    printf("Livro não econtrado.\n\n");
+                    printf("Livro nao econtrado.\n\n");
                     break;
                 }
             case 10:
                 if (genericCollectionEmpty(genericCollection)) {
-                    printf("Coleção esvaziada.\n\n");
+                    printf("Colecao esvaziada.\n\n");
                     break;
                 } else {
-                    printf("Erro ao esvaziar coleção.\n\n");
+                    printf("Erro ao esvaziar colecao.\n\n");
                     break;
                 }
             case 11:
                 if (genericCollectionDestroy(genericCollection)) {
-                    printf("Coleção destruida.\n\n");
+                    printf("Colecao destruida.\n\n");
                     break;
                 } else {
-                    printf("Erro ao destruir coleção.\n\n");
+                    printf("Erro ao destruir colecao.\n\n");
                     break;
                 }
+            case 0:
+                exit = 1;
+                break;
         }
     }
 
