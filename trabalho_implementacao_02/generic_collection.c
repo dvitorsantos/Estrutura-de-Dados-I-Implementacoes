@@ -34,10 +34,8 @@ GenericCollection *genericCollectionCreate(int size) {
 }
 
 int genericCollectionInsert(GenericCollection *genericCollection, void *element) {
-    if (genericCollection == NULL
-        || genericCollection->current_size == genericCollection->size
-        || element == NULL)
-        return FALSE;
+    if (genericCollection == NULL) return FALSE;
+    if (genericCollection->current_size == genericCollection->size || element == NULL) return FALSE;
 
     genericCollection->elements[genericCollection->current_size] = element;
     genericCollection->current_size++;
@@ -45,7 +43,8 @@ int genericCollectionInsert(GenericCollection *genericCollection, void *element)
 }
 
 int genericCollectionDestroy(GenericCollection *genericCollection) {
-    if (genericCollection == NULL || genericCollection->current_size > 0) return FALSE;
+    if (genericCollection == NULL) return FALSE;
+    if (genericCollection->current_size > 0) return FALSE;
 
     free(genericCollection->elements);
     free(genericCollection);
@@ -66,16 +65,19 @@ int genericCollectionSize(GenericCollection *genericCollection) {
 }
 
 void *genericCollectionFindAll(GenericCollection *genericCollection) {
-    if (genericCollection == NULL || genericCollection->current_size == 0) return NULL;
+    if (genericCollection == NULL) return NULL;
+    if (genericCollection->current_size == 0) return NULL;
 
     return genericCollection->elements;
 }
 
 void *genericCollectionFind(GenericCollection *genericCollection, void *key, int(*cmp)(void *, void *)) {
     if (genericCollection == NULL) return NULL;
+    if (genericCollection->current_size == 0) return NULL;
 
     for (int i = 0; i < genericCollection->current_size; i++) {
-        if (cmp(genericCollection->elements[i], key)) {
+        int status = cmp(genericCollection->elements[i], key);
+        if (status) {
             void *data = genericCollection->elements[i];
             return data;
         }
@@ -84,24 +86,24 @@ void *genericCollectionFind(GenericCollection *genericCollection, void *key, int
     return NULL;
 }
 
-int genericCollectionRemove(GenericCollection *genericCollection, void *key, int(*cmp)(void *, void *)) {
-    if (genericCollection == NULL) return FALSE;
+int *genericCollectionRemove(GenericCollection *genericCollection, void *key, int(*cmp)(void *, void *)) {
+    if (genericCollection == NULL) return NULL;
+    if (genericCollection->current_size == 0) return NULL;
 
     for (int i = 0; i < genericCollection->current_size; i++) {
-        if (cmp(genericCollection->elements[i], key)) {
-            genericCollection->elements[i] = NULL;
-
+        int status = cmp(genericCollection->elements[i], key);
+        if (status) {
+            void *data = genericCollection->elements[i];
             for (int j = i; j < genericCollection->current_size; j++) {
                 genericCollection->elements[j] = genericCollection->elements[j + 1];
             }
-
             genericCollection->current_size--;
 
-            return TRUE;
+            return data;
         }
     }
 
-    return FALSE;
+    return NULL;
 }
 
 int genericCollectionEmpty(GenericCollection *genericCollection) {

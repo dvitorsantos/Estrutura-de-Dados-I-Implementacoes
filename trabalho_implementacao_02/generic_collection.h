@@ -21,7 +21,7 @@ void *genericCollectionFindAll(GenericCollection *genericCollection);
 
 void *genericCollectionFind(GenericCollection *genericCollection, void *key, int(*cmp)(void *, void *));
 
-int genericCollectionRemove(GenericCollection *genericCollection, void *key, int(*cmp)(void *, void *));
+int *genericCollectionRemove(GenericCollection *genericCollection, void *key, int(*cmp)(void *, void *));
 
 int genericCollectionEmpty(GenericCollection *genericCollection);
 

@@ -131,7 +131,8 @@ int main() {
                     printf("Erro ao inserir livro!\n\n");
                 break;
             case 3:
-                if (books = (Book **) genericCollectionFindAll(genericCollection)) {
+                books = (Book **) genericCollectionFindAll(genericCollection);
+                if (books != NULL) {
                     for (int i = 0; i < genericCollectionCurrentSize(genericCollection); i++) {
                         printf("[%d/%d]:\n", i + 1, genericCollectionSize(genericCollection));
                         bookToString(books[i]);
@@ -144,7 +145,8 @@ int main() {
             case 4:
                 inputInt = readInt("Digite o id do livro");
 
-                if (book = (Book *) genericCollectionFind(genericCollection, &inputInt, cmpBookInt)) {
+                book = (Book *) genericCollectionFind(genericCollection, &inputInt, cmpBookInt);
+                if (book) {
                     bookToString(book);
                     break;
                 } else {
@@ -155,7 +157,8 @@ int main() {
                 printf("%s\n\n", "Digite o titulo do livro");
                 scanf("%s", inputStringVector);
 
-                if (book = (Book *) genericCollectionFind(genericCollection, inputStringVector, cmpBookString)) {
+                book = (Book *) genericCollectionFind(genericCollection, inputStringVector, cmpBookString);
+                if (book != NULL) {
                     bookToString(book);
                     break;
                 } else {
@@ -165,7 +168,8 @@ int main() {
             case 6:
                 inputFloat = readFloat("Digite a quantidade de estrelas do livro");
 
-                if (book = (Book *) genericCollectionFind(genericCollection, &inputFloat, cmpBookFloat)) {
+                book = (Book *) genericCollectionFind(genericCollection, &inputFloat, cmpBookFloat);
+                if (book != NULL) {
                     bookToString(book);
                     break;
                 } else {
@@ -175,7 +179,8 @@ int main() {
             case 7:
                 inputInt = readInt("Digite o id do livro");
 
-                if (genericCollectionRemove(genericCollection, &inputInt, cmpBookInt)) {
+                book = genericCollectionRemove(genericCollection, &inputInt, cmpBookInt);
+                if (book != NULL) {
                     printf("Livro removido.\n\n");
                     break;
                 } else {
@@ -186,7 +191,8 @@ int main() {
                 printf("%s\n\n", "Digite o titulo do livro");
                 scanf("%s", inputStringVector);
 
-                if (genericCollectionRemove(genericCollection, inputStringVector, cmpBookString)) {
+                book = genericCollectionRemove(genericCollection, inputStringVector, cmpBookString);
+                if (book != NULL) {
                     printf("Livro removido.\n\n");
                     break;
                 } else {
@@ -196,7 +202,8 @@ int main() {
             case 9:
                 inputFloat = readFloat("Digite a quantidade de estrelas do livro");
 
-                if (genericCollectionRemove(genericCollection, &inputFloat, cmpBookFloat)) {
+                book = genericCollectionRemove(genericCollection, &inputFloat, cmpBookFloat);
+                if (book != NULL) {
                     printf("Livro removido.\n\n");
                     break;
                 } else {
