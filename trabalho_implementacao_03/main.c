@@ -99,14 +99,14 @@ int main() {
 
         char inputStringVector[30];
 
-        Book **books;
-
         Book *book;
         SingleLinkedList *singleLinkedList;
+        SingleListNode *bookNode;
 
         switch (operation) {
             case 1:
-                if (singleLinkedList = sllCreate())
+                singleLinkedList = sllCreate();
+                if (singleLinkedList)
                     printf("Colecao criada!\n\n");
                 else
                     printf("Erro ao criar a colecao!\n\n");
@@ -126,16 +126,19 @@ int main() {
                 inputFloat = readFloat("Digite a quantidade de estrelas do livro: ");
                 book->stars = inputFloat;
 
-                if (singleLinkedList != NULL && sllInsertAtLast(singleLinkedList, book))
+                if (sllInsertAtLast(singleLinkedList, book))
                     printf("Livro inserido com sucesso!\n\n");
                 else
                     printf("Erro ao inserir livro!\n\n");
                 break;
             case 3:
-                book = (Book *) sllGetFirst(singleLinkedList);
+                bookNode = (SingleListNode *) sllGetFirstNode(singleLinkedList);
 
-                if (book) {
-                    bookToString(book);
+                if (bookNode != NULL) {
+                    while (bookNode) {
+                        bookToString((Book *) bookNode->data);
+                        bookNode = bookNode->next;
+                    }
                 } else {
                     printf("Coleção vazia.\n");
                 }

@@ -32,6 +32,7 @@ int sllDestroy(SingleLinkedList *list)
     if (list == NULL) return FALSE;
     if (list->first != NULL) return FALSE;
 
+    free(list->first);
     free(list);
     return TRUE;
 }
@@ -40,10 +41,10 @@ int sllEmpty(SingleLinkedList *list)
 {
     if (list == NULL) return FALSE;
     if (list->first == NULL) return FALSE;
-    
+
     SingleListNode *previous = list->first;
     SingleListNode *node = previous->next;
-    
+
     while (node != NULL) {
         free(previous);
         previous = node;
@@ -51,7 +52,7 @@ int sllEmpty(SingleLinkedList *list)
     }
     free(node);
     list->first = NULL;
-    
+
     return TRUE;
 }
 
@@ -122,6 +123,14 @@ void *sllGetFirst(SingleLinkedList *list) {
 
     SingleListNode *first = list->first;
     return first->data;
+}
+
+void *sllGetFirstNode(SingleLinkedList *list) {
+    if (list == NULL) return NULL;
+    if (list->first == NULL) return NULL;
+
+    SingleListNode *first = list->first;
+    return first;
 }
 
 int sllInsertAtLast(SingleLinkedList *list, void *data) {
